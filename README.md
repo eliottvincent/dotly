@@ -26,7 +26,7 @@ console.log(dotly.get(obj, "a.b.c"));
 
 ### Gets a value at a path within an object
 `get(object, path, defaultValue)` returns the value at the specified path:
-* `object` must the object in which to get the value from
+* `object` must the object from which to get the value
 * `path` must be a string representing the path, using dot notation
 * `defaultValue` can be used as a default value
 
@@ -82,9 +82,8 @@ console.log(obj);
 
 ### Removes a value at a path within an object
 `remove(object, path, value)` removes the value at the specified path:
-* `object` must the object in which to set the value
+* `object` must the object from which to remove the value
 * `path` must be a string representing the path, using dot notation
-* `value` must be the value to set
 
 ```js
 const { remove } = require("dotly");
