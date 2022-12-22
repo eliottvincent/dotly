@@ -118,5 +118,37 @@ module.exports = {
       });
 
     test.done();
+  },
+
+  testRemove: function(test) {
+    test.expect(12);
+
+    var actual = src.remove;
+    var message = "remove should be defined."
+    test.ok(actual, message);
+    test.equal(typeof actual, "function", message);
+
+    [
+      [OBJECT, "one", OBJECT.one],
+      [OBJECT, "true", OBJECT.true],
+
+      [OBJECT, "a.b.three", OBJECT.a.b.three],
+      [OBJECT, "a.b", OBJECT.a.b],
+      [OBJECT, "a.two", OBJECT.a.two],
+      [OBJECT, "a", OBJECT.a],
+
+      [OBJECT, "u", OBJECT.u],
+      [OBJECT, "n", OBJECT.n],
+      [OBJECT, "f", OBJECT.f],
+      [OBJECT, "zero", OBJECT.zero]
+    ]
+      .forEach((entry) => {
+        src.remove(entry[0], entry[1]);
+
+        var actual = src.get(entry[0], entry[1]);
+        test.equals(actual, undefined, "usage should work.");
+      });
+
+    test.done();
   }
 };
