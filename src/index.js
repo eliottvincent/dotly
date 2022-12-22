@@ -8,11 +8,11 @@ Object.defineProperty(exports, "__esModule", {
  * Gets a value at a path within an object
  * @public
  * @param  {object}                       object
- * @param  {string}                       path
+ * @param  {string}                       [path]
  * @param  {string|number|boolean|object} [defaultValue]
  * @return {string|number|boolean|object} The value within the object
  */
-var get = function(object, path, defaultValue = undefined) {
+var get = function(object, path = "", defaultValue = undefined) {
   let _value = object,
       _path  = path.split(".");
 

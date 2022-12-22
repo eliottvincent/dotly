@@ -24,7 +24,7 @@ var DEFAULT_VALUE = "four";
 
 module.exports = {
   testGet: function(test) {
-    test.expect(26);
+    test.expect(32);
 
     var actual = src.get;
     var message = "get should be defined."
@@ -32,8 +32,12 @@ module.exports = {
     test.equal(typeof actual, "function", message);
 
     [
+      [undefined, "one", undefined],
+
       [OBJECT, "", undefined],
+      [OBJECT, undefined],
       [OBJECT, "a.b.unexistingKey", undefined],
+      [OBJECT, "a.b.unexistingKey.anotherUnexistingKey", undefined],
 
       [OBJECT, "one", OBJECT.one],
       [OBJECT, "true", OBJECT.true],
@@ -54,8 +58,12 @@ module.exports = {
       });
 
     [
+      [undefined, "one", DEFAULT_VALUE, DEFAULT_VALUE],
+
       [OBJECT, "", DEFAULT_VALUE, DEFAULT_VALUE],
+      [OBJECT, undefined, DEFAULT_VALUE, DEFAULT_VALUE],
       [OBJECT, "a.b.unexistingKey", DEFAULT_VALUE, DEFAULT_VALUE],
+      [OBJECT, "a.b.unexistingKey.anotherUnexistingKey", DEFAULT_VALUE, DEFAULT_VALUE],
 
       [OBJECT, "one", DEFAULT_VALUE, OBJECT.one],
       [OBJECT, "true", DEFAULT_VALUE, OBJECT.true],
