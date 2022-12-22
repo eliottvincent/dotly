@@ -58,9 +58,33 @@ var set = function(object, path, value) {
   }
 };
 
+/**
+ * Removes a value at a path within an object
+ * @public
+ * @param  {object} object
+ * @param  {string} path
+ * @return {undefined}
+ */
+var remove = function(object, path) {
+  var _path = path.split(".");
+
+  for (var _i = 0; _i < _path.length; _i++) {
+    // Reached the end?
+    if (_i === _path.length - 1) {
+      delete object[_path[_i]];
+    } else {
+      // Continue the path
+      object = object[_path[_i]];
+    }
+  }
+};
+
 exports.get     = get;
 exports.set     = set;
+exports.remove  = remove;
+
 exports.default = {
   get    : get,
   set    : set,
+  remove : remove
 };
