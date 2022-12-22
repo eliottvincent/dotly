@@ -54,7 +54,7 @@ module.exports = {
     ]
       .forEach((entry) => {
         var actual = src.get(entry[0], entry[1]);
-        test.equals(actual, entry[2], "default usage should work.");
+        test.equals(actual, entry[2], "usage should work.");
       });
 
     [
@@ -85,4 +85,38 @@ module.exports = {
 
     test.done();
   },
+
+  testSet: function(test) {
+    test.expect(13);
+
+    var actual = src.set;
+    var message = "set should be defined."
+    test.ok(actual, message);
+    test.equal(typeof actual, "function", message);
+
+    [
+      [{}, "one", OBJECT.one],
+      [{}, "true", OBJECT.true],
+
+      [{}, "a.b.three", OBJECT.a.b.three],
+      [{}, "a.b", OBJECT.a.b],
+      [{}, "a.two", OBJECT.a.two],
+      [{}, "a", OBJECT.a],
+
+      [{}, "u", OBJECT.u],
+      [{}, "n", OBJECT.n],
+      [{}, "f", OBJECT.f],
+      [{}, "zero", OBJECT.zero],
+
+      [OBJECT, "a.b.three", DEFAULT_VALUE, DEFAULT_VALUE]
+    ]
+      .forEach((entry) => {
+        src.set(entry[0], entry[1], entry[2]);
+
+        var actual = src.get(entry[0], entry[1]);
+        test.equals(actual, entry[2], "usage should work.");
+      });
+
+    test.done();
+  }
 };
