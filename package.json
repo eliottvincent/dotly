@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "dotly",
+  "description": "Access properties within an object, using dot-notation",
+  "author": "Eliott Vincent <dev@eliottvincent.com>",
+  "main": "src/index.js",
+  "homepage": "https://github.com/eliottvincent/dotly",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eliottvincent/dotly"
+  },
+  "bugs": {
+    "url": "https://github.com/eliottvincent/dotly/issues"
+  },
+  "scripts": {
+    "test": "nodeunit ./test/index.js"
+  },
+  "devDependencies": {
+    "nodeunit-x": "0.15.0"
+  },
+  "keywords": [
+    "dotly",
+    "dot",
+    "notation",
+    "object"
+  ],
+  "license": "MIT"
+}
