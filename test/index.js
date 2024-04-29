@@ -58,43 +58,43 @@ module.exports = {
       [OBJECT, "z", OBJECT.z],
 
       [OBJECT, "*", [
-        {$d: true, path: "one", value: OBJECT.one},
-        {$d: true, path: "true", value: OBJECT.true},
-        {$d: true, path: "a", value: OBJECT.a},
-        {$d: true, path: "u", value: OBJECT.u},
-        {$d: true, path: "n", value: OBJECT.n},
-        {$d: true, path: "f", value: OBJECT.f},
-        {$d: true, path: "z", value: OBJECT.z}
+        {$d: {wildcard: true}, path: "one", value: OBJECT.one},
+        {$d: {wildcard: true}, path: "true", value: OBJECT.true},
+        {$d: {wildcard: true}, path: "a", value: OBJECT.a},
+        {$d: {wildcard: true}, path: "u", value: OBJECT.u},
+        {$d: {wildcard: true}, path: "n", value: OBJECT.n},
+        {$d: {wildcard: true}, path: "f", value: OBJECT.f},
+        {$d: {wildcard: true}, path: "z", value: OBJECT.z}
       ]],
       [OBJECT, "*.*", [
-        {$d: true, path: "a.two", value: OBJECT.a.two},
-        {$d: true, path: "a.b", value: OBJECT.a.b},
-        {$d: true, path: "a.c", value: OBJECT.a.c}
+        {$d: {wildcard: true}, path: "a.two", value: OBJECT.a.two},
+        {$d: {wildcard: true}, path: "a.b", value: OBJECT.a.b},
+        {$d: {wildcard: true}, path: "a.c", value: OBJECT.a.c}
       ]],
       [OBJECT, "*.*.hello", [
-        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
-        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
+        {$d: {wildcard: true}, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: {wildcard: true}, path: "a.c.hello", value: OBJECT.a.c.hello}
       ]],
       [OBJECT, "*.two", [
-        {$d: true, path: "a.two", value: OBJECT.a.two},
+        {$d: {wildcard: true}, path: "a.two", value: OBJECT.a.two},
       ]],
       [OBJECT, "a.*", [
-        {$d: true, path: "a.two", value: OBJECT.a.two},
-        {$d: true, path: "a.b", value: OBJECT.a.b},
-        {$d: true, path: "a.c", value: OBJECT.a.c}
+        {$d: {wildcard: true}, path: "a.two", value: OBJECT.a.two},
+        {$d: {wildcard: true}, path: "a.b", value: OBJECT.a.b},
+        {$d: {wildcard: true}, path: "a.c", value: OBJECT.a.c}
       ]],
       [OBJECT, "a.*.*", [
-        {$d: true, path: "a.b.three", value: OBJECT.a.b.three},
-        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
-        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
+        {$d: {wildcard: true}, path: "a.b.three", value: OBJECT.a.b.three},
+        {$d: {wildcard: true}, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: {wildcard: true}, path: "a.c.hello", value: OBJECT.a.c.hello}
       ]],
       [OBJECT, "a.b.*", [
-        {$d: true, path: "a.b.three", value: OBJECT.a.b.three},
-        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello}
+        {$d: {wildcard: true}, path: "a.b.three", value: OBJECT.a.b.three},
+        {$d: {wildcard: true}, path: "a.b.hello", value: OBJECT.a.b.hello}
       ]],
       [OBJECT, "a.*.hello", [
-        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
-        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
+        {$d: {wildcard: true}, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: {wildcard: true}, path: "a.c.hello", value: OBJECT.a.c.hello}
       ]],
       [OBJECT, "a.*.hello.unexistingKey", undefined],
       [OBJECT, "a.c.hello.*", undefined]

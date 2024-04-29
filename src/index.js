@@ -114,7 +114,9 @@ var __getWildcard = function(object, path = "", defaultValue = undefined) {
 var __search = function(object, path, currentPath = [], results = []) {
   if (path.length === 0) {
     results.push({
-      $d    : true,
+      $d    : {
+        wildcard : true
+      },
 
       path  : currentPath.join("."),
       value : object
