@@ -13,6 +13,10 @@ Object.defineProperty(exports, "__esModule", {
  * @return {string|number|boolean|object} The value within the object
  */
 var get = function(object, path = "", defaultValue = undefined) {
+  if (path.includes("*")) {
+    return __getWildcard(object, path, defaultValue);
+  }
+
   var _value = object,
       _path  = path.split(".");
 
@@ -77,6 +81,72 @@ var remove = function(object, path) {
       object = object[_path[_i]];
     }
   }
+};
+
+/**
+ * Gets a value at a path within an object (wildcard)
+ * @private
+ * @param  {object}                       object
+ * @param  {string}                       [path]
+ * @param  {string|number|boolean|object} [defaultValue]
+ * @return {string|number|boolean|object} The value within the object
+ */
+var __getWildcard = function(object, path = "", defaultValue = undefined) {
+  var _path    = path.split("."),
+      _results = __search(object, _path);
+
+  if (_results.length) {
+    return _results
+  }
+
+  return defaultValue;
+};
+
+/**
+ * Searches object values based on path (recursive)
+ * @private
+ * @param  {object} object
+ * @param  {object} path
+ * @param  {object} currentPath
+ * @param  {object} [results]
+ * @return {object} Results
+ */
+var __search = function(object, path, currentPath = [], results = []) {
+  if (path.length === 0) {
+    results.push({
+      $d    : true,
+
+      path  : currentPath.join("."),
+      value : object
+    });
+
+    return results;
+  }
+
+  var _part = path[0],
+      _path = path.slice(1);
+
+  if (object && typeof object === "object") {
+    if (_part === "*") {
+      for (var _key in object) {
+        __search(
+          object[_key],
+          _path,
+          currentPath.concat(_key),
+          results
+        );
+      }
+    } else if (object[_part] !== undefined) {
+      __search(
+        object[_part],
+        _path,
+        currentPath.concat(_part),
+        results
+      );
+    }
+  }
+
+  return results;
 };
 
 exports.get     = get;

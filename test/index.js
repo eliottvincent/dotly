@@ -10,21 +10,26 @@ var OBJECT = {
     two: 2,
 
     b: {
-      three: 3
+      three: 3,
+      hello: "hello b"
+    },
+
+    c: {
+      hello: "hello c"
     }
   },
 
   u: undefined,
   n: null,
   f: false,
-  zero: 0
+  z: 0
 };
 
 var DEFAULT_VALUE = "four";
 
 module.exports = {
   testGet: function(test) {
-    test.expect(32);
+    test.expect(41);
 
     var actual = src.get;
     var message = "get should be defined."
@@ -50,11 +55,49 @@ module.exports = {
       [OBJECT, "u", OBJECT.u],
       [OBJECT, "n", OBJECT.n],
       [OBJECT, "f", OBJECT.f],
-      [OBJECT, "zero", OBJECT.zero]
+      [OBJECT, "z", OBJECT.z],
+
+      [OBJECT, "*", [
+        {$d: true, path: "one", value: OBJECT.one},
+        {$d: true, path: "true", value: OBJECT.true},
+        {$d: true, path: "a", value: OBJECT.a},
+        {$d: true, path: "u", value: OBJECT.u},
+        {$d: true, path: "n", value: OBJECT.n},
+        {$d: true, path: "f", value: OBJECT.f},
+        {$d: true, path: "z", value: OBJECT.z}
+      ]],
+      [OBJECT, "*.*", [
+        {$d: true, path: "a.two", value: OBJECT.a.two},
+        {$d: true, path: "a.b", value: OBJECT.a.b},
+        {$d: true, path: "a.c", value: OBJECT.a.c}
+      ]],
+      [OBJECT, "*.two", [
+        {$d: true, path: "a.two", value: OBJECT.a.two},
+      ]],
+      [OBJECT, "a.*", [
+        {$d: true, path: "a.two", value: OBJECT.a.two},
+        {$d: true, path: "a.b", value: OBJECT.a.b},
+        {$d: true, path: "a.c", value: OBJECT.a.c}
+      ]],
+      [OBJECT, "a.*.*", [
+        {$d: true, path: "a.b.three", value: OBJECT.a.b.three},
+        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
+      ]],
+      [OBJECT, "a.b.*", [
+        {$d: true, path: "a.b.three", value: OBJECT.a.b.three},
+        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello}
+      ]],
+      [OBJECT, "a.*.hello", [
+        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello},
+      ]],
+      [OBJECT, "a.*.hello.unexistingKey", undefined],
+      [OBJECT, "a.c.hello.*", undefined]
     ]
       .forEach((entry) => {
         var actual = src.get(entry[0], entry[1]);
-        test.equals(actual, entry[2], "usage should work.");
+        test.deepEqual(actual, entry[2], "get usage should work.");
       });
 
     [
@@ -76,11 +119,11 @@ module.exports = {
       [OBJECT, "u", DEFAULT_VALUE, DEFAULT_VALUE],
       [OBJECT, "n", DEFAULT_VALUE, OBJECT.n],
       [OBJECT, "f", DEFAULT_VALUE, OBJECT.f],
-      [OBJECT, "zero", DEFAULT_VALUE, OBJECT.zero],
+      [OBJECT, "z", DEFAULT_VALUE, OBJECT.z]
     ]
       .forEach((entry) => {
         var actual = src.get(entry[0], entry[1], entry[2]);
-        test.equals(actual, entry[3], "usage with defaultValue should work.");
+        test.equals(actual, entry[3], "get usage with defaultValue should work.");
       });
 
     test.done();
@@ -106,7 +149,7 @@ module.exports = {
       [{}, "u", OBJECT.u],
       [{}, "n", OBJECT.n],
       [{}, "f", OBJECT.f],
-      [{}, "zero", OBJECT.zero],
+      [{}, "z", OBJECT.z],
 
       [OBJECT, "a.b.three", DEFAULT_VALUE, DEFAULT_VALUE]
     ]
@@ -114,7 +157,7 @@ module.exports = {
         src.set(entry[0], entry[1], entry[2]);
 
         var actual = src.get(entry[0], entry[1]);
-        test.equals(actual, entry[2], "usage should work.");
+        test.equals(actual, entry[2], "set usage should work.");
       });
 
     test.done();
@@ -140,13 +183,13 @@ module.exports = {
       [OBJECT, "u", OBJECT.u],
       [OBJECT, "n", OBJECT.n],
       [OBJECT, "f", OBJECT.f],
-      [OBJECT, "zero", OBJECT.zero]
+      [OBJECT, "z", OBJECT.z]
     ]
       .forEach((entry) => {
         src.remove(entry[0], entry[1]);
 
         var actual = src.get(entry[0], entry[1]);
-        test.equals(actual, undefined, "usage should work.");
+        test.equals(actual, undefined, "remove usage should work.");
       });
 
     test.done();

@@ -27,7 +27,7 @@ console.log(dotly.get(obj, "a.b.c"));
 ### Gets a value at a path within an object
 `get(object, path, defaultValue)` returns the value at the specified path:
 * `object` must the object from which to get the value
-* `path` must be a string representing the path, using dot notation
+* `path` must be a string representing the path, using dot notation (supports wildcard with `*`)
 * `defaultValue` can be used as a default value
 
 ```js
@@ -37,6 +37,10 @@ var obj = {
   a: {
     b: {
       c: "hello"
+    },
+
+    d: {
+      c: "hello bis"
     }
   }
 };
@@ -52,6 +56,9 @@ console.log(get(obj, "a.b.c.d"));
 
 console.log(get(obj, "a.b.c.d", "hallo"));
 // 'hallo'
+
+console.log(get(obj, "a.*.c"));
+// [{path: 'a.b.c', value: 'hello'}, {path: 'a.d.c', value: 'hello bis'}]
 ```
 
 ### Sets a value at a path within an object
