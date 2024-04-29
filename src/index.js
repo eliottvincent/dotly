@@ -123,6 +123,7 @@ var __search = function(object, path, currentPath = [], results = []) {
     return results;
   }
 
+  // Extract and remove first path' part
   var _part = path[0],
       _path = path.slice(1);
 

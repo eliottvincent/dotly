@@ -29,7 +29,7 @@ var DEFAULT_VALUE = "four";
 
 module.exports = {
   testGet: function(test) {
-    test.expect(41);
+    test.expect(42);
 
     var actual = src.get;
     var message = "get should be defined."
@@ -71,6 +71,10 @@ module.exports = {
         {$d: true, path: "a.b", value: OBJECT.a.b},
         {$d: true, path: "a.c", value: OBJECT.a.c}
       ]],
+      [OBJECT, "*.*.hello", [
+        {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
+        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
+      ]],
       [OBJECT, "*.two", [
         {$d: true, path: "a.two", value: OBJECT.a.two},
       ]],
@@ -90,7 +94,7 @@ module.exports = {
       ]],
       [OBJECT, "a.*.hello", [
         {$d: true, path: "a.b.hello", value: OBJECT.a.b.hello},
-        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello},
+        {$d: true, path: "a.c.hello", value: OBJECT.a.c.hello}
       ]],
       [OBJECT, "a.*.hello.unexistingKey", undefined],
       [OBJECT, "a.c.hello.*", undefined]
